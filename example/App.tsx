@@ -1,73 +1,73 @@
-import { useEvent } from 'expo';
-import AndroidTelephony, { AndroidTelephonyView } from 'android-telephony';
-import { Button, SafeAreaView, ScrollView, Text, View } from 'react-native';
+import * as telephony from "android-telephony";
+import { useState } from "react";
+import {
+  Button,
+  SafeAreaView,
+  ScrollView,
+  Text,
+  StyleSheet,
+  View,
+} from "react-native";
 
 export default function App() {
-  const onChangePayload = useEvent(AndroidTelephony, 'onChange');
+  const [value, setValue] = useState<string>(JSON.stringify("{}"));
+
+  const handlePress = async (action: "getCarrierInfo" | "getAllCellInfo") => {
+    try {
+      const result = await telephony.runAction(action);
+      setValue(JSON.stringify(result, null, 2)); // Beautify JSON output
+    } catch (error) {
+      console.error("Error fetching data:", error);
+      setValue("Failed to fetch data.");
+    }
+  };
 
   return (
     <SafeAreaView style={styles.container}>
-      <ScrollView style={styles.container}>
+      <ScrollView contentContainerStyle={styles.content}>
         <Text style={styles.header}>Module API Example</Text>
-        <Group name="Constants">
-          <Text>{AndroidTelephony.PI}</Text>
-        </Group>
-        <Group name="Functions">
-          <Text>{AndroidTelephony.hello()}</Text>
-        </Group>
-        <Group name="Async functions">
+
+        <View style={styles.action}>
           <Button
-            title="Set value"
-            onPress={async () => {
-              await AndroidTelephony.setValueAsync('Hello from JS!');
-            }}
+            title="Get All Cell Info"
+            onPress={() => handlePress("getAllCellInfo")}
           />
-        </Group>
-        <Group name="Events">
-          <Text>{onChangePayload?.value}</Text>
-        </Group>
-        <Group name="Views">
-          <AndroidTelephonyView
-            url="https://www.example.com"
-            onLoad={({ nativeEvent: { url } }) => console.log(`Loaded: ${url}`)}
-            style={styles.view}
+          <Button
+            title="Get Carrier Info"
+            onPress={() => handlePress("getCarrierInfo")}
           />
-        </Group>
+        </View>
+
+        <Text style={styles.output}>{JSON.parse(value)}</Text>
       </ScrollView>
     </SafeAreaView>
   );
 }
 
-function Group(props: { name: string; children: React.ReactNode }) {
-  return (
-    <View style={styles.group}>
-      <Text style={styles.groupHeader}>{props.name}</Text>
-      {props.children}
-    </View>
-  );
-}
-
-const styles = {
-  header: {
-    fontSize: 30,
-    margin: 20,
-  },
-  groupHeader: {
-    fontSize: 20,
-    marginBottom: 20,
-  },
-  group: {
-    margin: 20,
-    backgroundColor: '#fff',
-    borderRadius: 10,
-    padding: 20,
-  },
+const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#eee',
+    backgroundColor: "#eee",
   },
-  view: {
-    flex: 1,
-    height: 200,
+  content: {
+    padding: 20,
   },
-};
+  action: {
+    justifyContent: "center",
+    flexDirection: "row",
+    gap: 16,
+  },
+  header: {
+    fontSize: 24,
+    fontWeight: "bold",
+    marginBottom: 20,
+    alignSelf: "center",
+  },
+  output: {
+    marginTop: 20,
+    backgroundColor: "#fff",
+    padding: 10,
+    borderRadius: 5,
+    fontSize: 16,
+  },
+});

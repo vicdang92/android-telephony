@@ -1,25 +1,35 @@
 package expo.modules.androidtelephony
 
-import android.annotation.SuppressLint
-import expo.modules.kotlin.Promise
 import expo.modules.kotlin.modules.Module
 import expo.modules.kotlin.modules.ModuleDefinition
+import org.json.JSONException
+import org.json.JSONObject
 
 class AndroidTelephonyModule : Module() {
-  @SuppressLint("NewApi")
-  override fun definition() = ModuleDefinition {
-    Name("AndroidTelephony")
+    override fun definition() = ModuleDefinition {
+        Name("AndroidTelephony")
 
-    // Defines a JavaScript synchronous function that runs the native code on the JavaScript thread.
-    Function("getALlCellInfo") {
-      val androidTelephony = AndroidTelephony()
-      val result = androidTelephony.getAllCellInfo(appContext.reactContext)
-      result
+        Function("getAllCellInfo") {
+            try {
+                val androidTelephony = AndroidTelephony()
+                val result = androidTelephony.getAllCellInfo(appContext.reactContext)
+                result.toString()
+            } catch (e: JSONException) {
+                val json = JSONObject()
+                json.put("ERROR", e.message)
+                json.toString()
+            }
+        }
+        Function("execute") { action: String ->
+            try {
+                val androidTelephony = AndroidTelephony()
+                val result = androidTelephony.execute(appContext.reactContext, action)
+                result.toString()
+            } catch (e: JSONException) {
+                val json = JSONObject()
+                json.put("ERROR", e.message)
+                json.toString()
+            }
+        }
     }
-    AsyncFunction("execute") { action: String, promise: Promise ->
-      val androidTelephony = AndroidTelephony()
-      val result = androidTelephony.execute(appContext.reactContext, action, promise)
-      result
-    }
-  }
 }
