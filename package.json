@@ -1,9 +1,9 @@
 {
   "name": "android-telephony",
-  "version": "0.1.0",
-  "description": "My new module",
-  "main": "build/index.js",
-  "types": "build/index.d.ts",
+  "version": "1.0.0",
+  "description": "This plugin allows you to retrieve ALL cellular information from Android devices if available.",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
   "scripts": {
     "build": "expo-module build",
     "clean": "expo-module clean",
@@ -26,7 +26,6 @@
     "url": "https://github.com/vicdang92/android-telephony/issues"
   },
   "author": "vu dang <dnnvu@tma.com.vn> (https://github.com/vicdang92)",
-  "license": "MIT",
   "homepage": "https://github.com/vicdang92/android-telephony#readme",
   "dependencies": {},
   "devDependencies": {

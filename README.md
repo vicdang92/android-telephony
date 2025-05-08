@@ -1,15 +1,6 @@
-# android-telephony
+# React Native Plugin Android Telephony
 
-My new module
-
-# API documentation
-
-- [Documentation for the latest stable release](https://docs.expo.dev/versions/latest/sdk/android-telephony/)
-- [Documentation for the main branch](https://docs.expo.dev/versions/unversioned/sdk/android-telephony/)
-
-# Installation in managed Expo projects
-
-For [managed](https://docs.expo.dev/archive/managed-vs-bare/) Expo projects, please follow the installation instructions in the [API documentation for the latest stable release](#api-documentation). If you follow the link and there is no documentation available then this library is not yet usable within managed projects &mdash; it is likely to be included in an upcoming Expo SDK release.
+This plugin allows you to retrieve ALL cellular information from Android devices if available.
 
 # Installation in bare React Native projects
 
@@ -23,10 +14,18 @@ npm install android-telephony
 
 ### Configure for Android
 
-
-
-
-
-# Contributing
-
-Contributions are very welcome! Please refer to guidelines described in the [contributing guide]( https://github.com/expo/expo#contributing).
+Since module requires ACCESS_FINE_LOCATION permission, make sure to add it to your app
+AndroidManifest.xml file:
+```
+<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+```
+If you are using Expo EAS Build, modify your app.json or app.config.js to include:
+```
+{
+  "expo": {
+    "android": {
+      "permissions": ["ACCESS_FINE_LOCATION",...]
+    }
+  }
+}
+```

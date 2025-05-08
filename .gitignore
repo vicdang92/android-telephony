@@ -37,6 +37,7 @@ local.properties
 android.iml
 android/app/libs
 android/keystores/debug.keystore
+android/build
 
 # Cocoapods
 #
@@ -54,3 +55,8 @@ yarn-error.log
 
 # Expo
 .expo/*
+
+# lock
+package-lock.json
+yarn.lock
+bun.lock
