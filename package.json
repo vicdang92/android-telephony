@@ -1,5 +1,5 @@
 {
-  "name": "android-telephony",
+  "name": "react-native-android-telephony",
   "version": "1.0.0",
   "description": "This plugin allows you to retrieve ALL cellular information from Android devices if available.",
   "main": "lib/index.js",
