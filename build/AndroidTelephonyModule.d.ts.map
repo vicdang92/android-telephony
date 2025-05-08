@@ -1,0 +1,1 @@
+{"version":3,"file":"AndroidTelephonyModule.d.ts","sourceRoot":"","sources":["../src/AndroidTelephonyModule.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,YAAY,EAAuB,MAAM,MAAM,CAAC;AACzD,OAAO,OAAO,sBAAuB,SAAQ,YAAY;IACvD,cAAc,IAAI,MAAM;IACxB,OAAO,CAAC,MAAM,EAAE,MAAM,GAAG,MAAM;CAChC;;AAGD,wBAA+E"}
